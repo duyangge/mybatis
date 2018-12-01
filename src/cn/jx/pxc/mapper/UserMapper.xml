@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jx.pxc.mapper.UserMapper"><!--使用mapper接口后，namespace为Mapper接口的全类名 -->
+
+	<!--sql片段：增加sql代码的可重用性  -->
+	<sql id="query_user_where">
+			<if test="userCustomer!=null">
+				<if test="userCustomer.sex!=null and userCustomer.sex!=''">
+					and user.sex=#{userCustomer.sex}				
+				</if>
+				<if test="userCustomer.username!=null and userCustomer.username!=''">
+					and user.username like '%${userCustomer.username}%'
+				</if>
+			</if>
+			
+			<!--使用foreach遍历 and (id=1 or id=10 or id=24) -->
+			<foreach collection="ids" item="user_id" open="and (" close=")" separator="or">
+				#{user_id}
+			</foreach>
+			
+			<!--使用foreach遍历 and id in( 1,10,24)   -->
+			<!-- <foreach collection="ids" item="user_id" open="and id in(" close=")" separator=",">
+				#{user_id}
+			</foreach> -->
+	</sql>
+	
+	<!--通过用户id查询单条用户信息  -->
+	<select id="findUserById" parameterType="int" resultType="user">
+			select uid ,username,sex,birthday,address from user where uid=#{id}	
+	</select>
+	
+	<!-- 综合查询用户信息 UserQueryVo:user查询条件的包装类；UserCustomer:user的扩展类 -->
+	<select id="findUserList" parameterType="cn.jx.pxc.pojo.UserQueryVo" resultType="cn.jx.pxc.pojo.UserCustomer" >
+		select uid ,username,sex,birthday,address  from user 
+		<!--自动去掉条件中的第一个and  -->
+		<where>
+			<if test="userCustomer!=null">
+				<if test="userCustomer.sex!=null and userCustomer.sex!=''">
+					and user.sex=#{userCustomer.sex}				
+				</if>
+				<if test="userCustomer.username!=null and userCustomer.username!=''">
+					and user.username like '%${userCustomer.username}%'
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<!--统计符合条件的用户数量 -->
+	<select id="findUserCount" parameterType="cn.jx.pxc.pojo.UserQueryVo" resultType="int">
+		select count(1) from user 
+		<where>
+			<!--引用sql片段；id：唯一标识sql片段  -->
+			<include refid="query_user_where"></include>
+			<!--还可以引用更多的sql片段，不在本maper文件中，需要加上namespace  -->
+		</where>
+	</select>
+	
+	<!--查询所有用户信息  -->
+	<select id="findAllUser" resultMap="userResultMap">
+		SELECT uid uid_, username username_,sex,birthday,address FROM USER
+	</select>
+	
+	<!--通过用户名模糊查询用户信息  -->
+	<!-- <select id="findUserByName" parameterType="String" resultType="user">
+		SELECT * FROM user WHERE userNAME LIKE "%${value}%"
+	</select> -->
+	
+	<!--  通过用户id来删除用户  -->
+	<!-- <delete id="deleteUserById" parameterType="int">
+		DELETE FROM user WHERE UID=#{id}
+	</delete> -->
+	
+	<!--修改用户信息  -->
+	<!-- <update id="updateUserById" parameterType="user">
+		update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where uid=#{uid}
+	</update> -->
+	
+	<!--添加新用户 并返回其主键 -->
+		<!--自增型  -->
+		<!-- <insert id="addUser" parameterType="user">
+			<selectKey keyProperty="id" resultType="int" order="AFTER">
+				SELECT	LAST_INSERT_OD()		
+			</selectKey>
+			insert into user(username,birthday,sex,address) value(#{username},#{birthday},#{sex},#{address})
+		</insert> -->
+		<!--非自增型  -->
+		<!-- <insert id="addUser" parameterType="user" resultType="java.lang.Integer">
+			<selectKey keyProperty="id" resultType="java.lang.String" order="AFTER">
+				select 	uuid()		
+			</selectKey>
+			insert into user(uid,username,birthday,sex,address) value(#{uid},#{username},#{birthday},#{sex},#{address})
+		</insert> -->
+		
+		<!--resultMap  -->
+		<resultMap type="cn.jx.pxc.pojo.UserCustomer" id="userResultMap">
+			<id column="uid_" property="uid"/>
+			<result column="username_" property="username"/>
+		</resultMap>
+</mapper>
