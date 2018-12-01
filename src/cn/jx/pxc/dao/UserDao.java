@@ -11,7 +11,7 @@ import cn.jx.pxc.pojo.User;
  * <p>@Title UserDao.java</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.dao
- * @author 黄信胜
+ * @author sunlixin
  * @date 2018年11月29日下午1:20:58
  * @version 版本号
  */
