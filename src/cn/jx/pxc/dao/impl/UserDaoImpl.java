@@ -9,7 +9,7 @@ import cn.jx.pxc.dao.UserDao;
 import cn.jx.pxc.pojo.User;
 
 /**
- *修改：黄信胜
+ *修改：黄信胜1
  * <p>@Title UserDaoImpl.java</p>
  *<p> @description userdaoimpL实现类</p>
  * @package cn.jx.pxc.dao.impl
