@@ -7,7 +7,11 @@ import java.util.List;
 
 import cn.jx.pxc.pojo.User;
 
+
 /**
+=======
+/**1234567
+>>>>>>> branch 'master' of https://github.com/duyangge/SSM.git
  * <p>@Title UserDao.java</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.dao
