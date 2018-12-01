@@ -8,7 +8,7 @@ import java.util.List;
 import cn.jx.pxc.dao.UserDao;
 import cn.jx.pxc.pojo.User;
 
-/**
+/**刘斐
  * <p>@Title UserDaoImpl.java</p>
  *<p> @description 鎻忚堪</p>
  * @package cn.jx.pxc.dao.impl
