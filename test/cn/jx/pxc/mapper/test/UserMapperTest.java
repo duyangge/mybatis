@@ -50,7 +50,7 @@ public class UserMapperTest {
 		userQueryVo.setUserCustomer(userCustomer);
 		List<UserCustomer> uCustomer =	userMapper.findUserList(userQueryVo);
 		System.out.println(uCustomer.toString());
-		System.out.println("---------测试修改----------");
+		System.out.println("----------测试修改----------");
 		sqlSession.close();
 		}
 	
