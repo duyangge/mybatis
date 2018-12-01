@@ -9,12 +9,13 @@ import cn.jx.pxc.dao.UserDao;
 import cn.jx.pxc.pojo.User;
 
 /**
+ * chaochao
  * <p>@Title UserDaoImpl.java</p>
- *<p> @description 描述</p>
+ *<p> @description 鎻忚堪</p>
  * @package cn.jx.pxc.dao.impl
- * @author 黄信胜
- * @date 2018年11月29日下午4:27:33
- * @version 版本号
+ * @author 榛勪俊鑳�
+ * @date 2018骞�11鏈�29鏃ヤ笅鍗�4:27:33
+ * @version 鐗堟湰鍙�
  */
 public class UserDaoImpl implements UserDao{
 
@@ -23,7 +24,7 @@ public class UserDaoImpl implements UserDao{
 	 */
 	@Override
 	public User findUserById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("aaaaaaaaaaaaa........"+id);
 		return null;
 	}
 
