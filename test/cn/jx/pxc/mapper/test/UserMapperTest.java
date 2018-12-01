@@ -18,7 +18,7 @@ import cn.jx.pxc.pojo.UserCustomer;
 import cn.jx.pxc.pojo.UserQueryVo;
 
 /**
- * 志朋在修改
+ * 志朋在修改..
  *<p> @Title MapperTest.java</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.mapper.test
