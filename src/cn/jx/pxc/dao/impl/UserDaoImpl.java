@@ -8,13 +8,14 @@ import java.util.List;
 import cn.jx.pxc.dao.UserDao;
 import cn.jx.pxc.pojo.User;
 
-/**刘斐
+/**
+ *修改：黄信胜
  * <p>@Title UserDaoImpl.java</p>
- *<p> @description 鎻忚堪</p>
+ *<p> @description userdaoimpL实现类</p>
  * @package cn.jx.pxc.dao.impl
- * @author 榛勪俊鑳�
- * @date 2018骞�11鏈�29鏃ヤ笅鍗�4:27:33
- * @version 鐗堟湰鍙�
+ * @author 黄信胜
+ * @date 2018.11.23;4:27:33
+ * @version 1.0
  */
 public class UserDaoImpl implements UserDao{
 
