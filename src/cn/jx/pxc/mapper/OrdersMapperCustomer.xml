@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jx.pxc.mapper.OrdersMapperCustomer"><!--使用mapper接口后，namespace为Mapper接口的全类名 -->
+	
+	<!--通过订单表中的顾客id，查询到顾客的信息  -->
+	<select id="findOrdersUser"  resultType="cn.jx.pxc.pojo.OrdersCustomer">
+			select distinct user.username,
+				user.sex,
+				user.address 
+			from user,orders 
+			where user.uid=orders.user_id 
+	</select>
+	
+	<!--通过订单表查询关联的用户信息使用resultMap  -->
+	<select id="findOrdersUserResultMap"  resultMap="OrdersUserResultMap">
+			select  orders.*,
+				user.username,
+				user.sex,
+				user.address ,
+				user.birthday,
+				user.uid 
+			from user,orders 
+			where user.uid=orders.user_id 
+	</select>
+	
+	<!--通过订单表查询关联的用户信息及订单明细信息，使用resultMap  -->
+	<select id="findOrdersUserAndOrdersdetailResultMap"  resultMap="OrdersUserAndOrdersdetailResultMap">
+			select 
+				orders.*,
+				ordersdetail.id ordersdetail_id,
+				ordersdetail.items_num,
+				user.username,
+				user.sex,
+				user.address,
+				user.birthday,
+				user.uid 
+			from user,orders,ordersdetail 
+			where user.uid=orders.user_id
+			and ordersdetail.orders_id=orders.id
+	</select>
+	
+	<!--type:自定输出类型的对象  -->
+	<resultMap type="cn.jx.pxc.pojo.Orders" id="OrdersUserResultMap">
+		<!--配置映射的订单信息  -->
+		<!--id:指定查询列中唯一 标识，订单信息中的唯一标识 ，如果由多个列组成唯一标识，就配置多个id-->
+		<id column="id" property="id"/>
+		<result column="user_id" property="user_id"/>
+		<result column="number" property="number"/>
+		<result column="createtime" property="createtime"/>
+		<result column="note" property="note"/>
+		
+		<!--关联的用户对象  javaType:映射的对象类型；property：orders对象中的属性-->
+		<!--assciation:用户映射关联查询单个对象的信息；
+			property:要将关联的用户信息映射额到Orders的哪个属性  -->
+		<association property="user" javaType="cn.jx.pxc.pojo.User">
+			<id column="uid" property="uid"/><!--id:唯一标识的关联的user对象  -->
+			<result column="username" property="username"/>
+			<result column="birthday" property="birthday"/>
+			<result column="sex" property="sex"/>
+			<result column="address" property="address"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="cn.jx.pxc.pojo.Orders" id="OrdersUserAndOrdersdetailResultMap" extends="OrdersUserResultMap">
+			<!--extends:继承上个mapper
+				实现用户信息，订单信息的映射
+				collection:对关联查询到多条记录映射到集合对象中；
+				ofType:指定映射到list集合属性中的pojo的类型。
+				property:orders类中的属性
+			  -->
+		 <collection property="ordersdetail" ofType="cn.jx.pxc.pojo.Ordersdetail">
+		 	<id column="ordersdetail_id" property="id"/>
+		 	<result column="items_num" property="itemsNum"/>
+		 </collection>
+	</resultMap>
+	
+	<!--sql片段：增加sql代码的可重用性  -->
+	<sql id="query_user_where">
+			<if test="userCustomer!=null">
+				<if test="userCustomer.sex!=null and userCustomer.sex!=''">
+					and user.sex=#{userCustomer.sex}				
+				</if>
+				<if test="userCustomer.username!=null and userCustomer.username!=''">
+					and user.username like '%${userCustomer.username}%'
+				</if>
+			</if>
+	</sql>
+</mapper>

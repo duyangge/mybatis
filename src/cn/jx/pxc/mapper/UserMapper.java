@@ -10,7 +10,7 @@ import cn.jx.pxc.pojo.UserCustomer;
 import cn.jx.pxc.pojo.UserQueryVo;
 
 
-/**
+/**修改：黄信胜2
  * <p>@Title UserMapper.java</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.mapper
