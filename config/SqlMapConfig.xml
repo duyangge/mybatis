@@ -10,9 +10,12 @@
 	</properties>
 	
 	<!--setting 全局配置参数  -->
-	<!-- <settings>
-	
-	</settings> -->
+	<settings>
+		<!--打开延迟加载的开关  -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!--将积极加载改为懒加载  -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
 	
 	<!--使用别名typeAliases  -->
 	<typeAliases>

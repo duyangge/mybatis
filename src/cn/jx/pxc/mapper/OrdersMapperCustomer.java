@@ -7,6 +7,7 @@ import java.util.List;
 
 import cn.jx.pxc.pojo.Orders;
 import cn.jx.pxc.pojo.OrdersCustomer;
+import cn.jx.pxc.pojo.User;
 import cn.jx.pxc.pojo.UserQueryVo;
 
 
@@ -38,5 +39,18 @@ public interface OrdersMapperCustomer {
 	 * @return Orders
 	 */
 	List<Orders> findOrdersUserAndOrdersdetailResultMap() throws Exception;
+	
+	/**
+	 * 使用resultMap查询用户及购买的商品信息
+	 * @return User
+	 */
+	List<User> findUserAndItemsResultMap() throws Exception;
+	
+	/**
+	 * 延迟加载：查询订单信息，有需要时才查询关联的用户信息,(提高查询数据库的性能)
+	 * @return   订单实体类对象
+	 * @throws Exception
+	 */
+	List<Orders> findOrdersUserLazyLoadingResultMap() throws Exception;
 	
 }

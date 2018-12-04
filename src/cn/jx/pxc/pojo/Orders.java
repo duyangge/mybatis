@@ -24,7 +24,6 @@ public class Orders implements Serializable{
 	private String note;//订单的记录描述
 	private User user;//关联的用户对象
 	private List<Ordersdetail> ordersdetail;//关联的订单明细
-	
 	public List<Ordersdetail> getOrdersdetail() {
 		return ordersdetail;
 	}

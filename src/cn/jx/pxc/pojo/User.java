@@ -2,6 +2,7 @@ package cn.jx.pxc.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>@Title User.java</p>
@@ -27,6 +28,13 @@ public class User implements Serializable{
 	private Date birthday;//密码
 	private Character sex;//性别
 	private String address;//邮箱
+	private List<Orders> orders;//关联的订单
+	public List<Orders> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
 	public Integer getUid() {
 		return uid;
 	}
@@ -60,7 +68,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", username=" + username + ", birthday=" + birthday + ", sex=" + sex + ", address="
-				+ address + "]";
+				+ address + ", orders=" + orders + "]";
 	}
 	
 }

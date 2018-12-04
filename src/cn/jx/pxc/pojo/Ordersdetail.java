@@ -13,12 +13,19 @@ import java.io.Serializable;
  * @date     2018年12月1日下午8:24:58
  * @version  1.0
  */
-@SuppressWarnings("serial")
+@SuppressWarnings("all")
 public class Ordersdetail implements Serializable{
 	private Integer id;//订单明细id
 	private Integer itemsNum;//商品数量
 	private Integer ordersId;//订单id
 	private Integer itemsId;//商品id
+	private Items items;//关联的商品
+	public Items getItems() {
+		return items;
+	}
+	public void setItems(Items items) {
+		this.items = items;
+	}
 	public Integer getId() {
 		return id;
 	}
