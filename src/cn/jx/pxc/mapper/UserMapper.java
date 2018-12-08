@@ -70,4 +70,11 @@ public interface UserMapper {
 	 * @throws Exception
 	 */
 	List<UserCustomer> findAllUser() throws Exception;
+	
+	/**
+	 * 根据用户id修改用户信息
+	 * @param user
+	 * @throws Exception
+	 */
+	void updateUserById(User user) throws Exception;
 }

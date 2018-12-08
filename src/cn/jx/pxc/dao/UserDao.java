@@ -9,15 +9,12 @@ import cn.jx.pxc.pojo.User;
 
 
 /**
-=======
-/**1234567
->>>>>>> branch 'master' of https://github.com/duyangge/SSM.git
- * <p>@Title UserDao.java</p>
+ * <p> @Title UserDao</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.dao
- * @author sunlixin
+ * @author 黄信胜
  * @date 2018年11月29日下午1:20:58
- * @version 版本号
+ * @version 1.0
  */
 public interface UserDao {
 	

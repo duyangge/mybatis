@@ -14,11 +14,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import cn.jx.pxc.mapper.UserMapper;
+import cn.jx.pxc.pojo.User;
 import cn.jx.pxc.pojo.UserCustomer;
 import cn.jx.pxc.pojo.UserQueryVo;
 
 /**
- * 志朋在修改..1234567
+ * 
  *<p> @Title MapperTest.java</p>
  *<p> @description 描述</p>
  * @package cn.jx.pxc.mapper.test
@@ -126,6 +127,41 @@ public class UserMapperTest {
 		int count = userMapper.findUserCount(userQueryVo);
 		System.out.println("count:\t"+count);
 		sqlSession.close();
+	}
+	
+	/**
+	 * 二级缓存测试
+	 * @throws Exception
+	 */
+	@Test
+	public void testCacheTwo() throws Exception {
+		InputStream inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession sqlSession1 = sqlSessionFactory.openSession();
+		SqlSession sqlSession2 = sqlSessionFactory.openSession();
+		SqlSession sqlSession3 = sqlSessionFactory.openSession();
+		
+		//第一次发送请求，查询用户id为1
+		UserMapper um1 = sqlSession1.getMapper(UserMapper.class);
+		User u1 = um1.findUserById(1);
+		System.out.println(u1);
+		
+		sqlSession1.close();//执行关闭操作，将sqlSession1中的数据写到二级缓存区域中
+		
+		//第三次发送请求，修改用户id为1的性别，执行commit操做后，二级缓存就会被清空
+		UserMapper um3 = sqlSession3.getMapper(UserMapper.class);
+		User u3 = um3.findUserById(1);
+		u3.setSex('女');
+		um3.updateUserById(u3);
+		sqlSession3.commit();//执行commit时，会刷新二级缓存 flushCache:true;表示刷新二级缓存，关闭后会产生脏读；
+		sqlSession3.close();
+		
+		//第二发送请求，查询用户id为1
+		UserMapper um2 = sqlSession2.getMapper(UserMapper.class);
+		User u2 = um2.findUserById(1);
+		System.out.println(u2);
+		sqlSession2.close();
+
 	}
 	
 	

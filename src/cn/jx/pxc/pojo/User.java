@@ -20,6 +20,7 @@ import java.util.List;
  * 5.实现java.io.Serializable接口(活化与钝化，序列化，session)
  * 6.不能用final修饰
  * 7.如果是基础类类型，要使用它的包装类
+ * 为了将缓存数据取出执行反序列化操作，应为二级缓存数据存储介质多种多样，不一样在内存。
  */
 @SuppressWarnings("all")
 public class User implements Serializable{
